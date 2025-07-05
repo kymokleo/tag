@@ -1,93 +1,161 @@
-.TH "TAG" "1" "Jul 2019" "Tag" "tag"
-.
-.SH "NAME"
-\fBtag\fR \- A tool for manipulating and querying file tags.
-.
-.SH "SYNOPSIS"
-\fBtag\fR [options] [command] [<tags> <path>] \.\.\.
-.
-.SH "COMMANDS"
+.TH TAG 1 "July 2025" "1.0" "Tag Command Manual"
+.SH NAME
+tag \- A tool for manipulating and querying file tags
+
+.SH SYNOPSIS
+.B tag
+[\fIoptions\fR] 
+.BR \-a ", " \-\-add " <tags> <path>" 
+.BR \-r ", " \-\-remove " <tags> <path>" 
+.BR \-s ", " \-\-set " <tags> <path>" 
+.BR \-m ", " \-\-match " <tags> <path>" 
+.BR \-f ", " \-\-find " <tags> <path>" 
+.BR \-u ", " \-\-usage " <tags> <path>" 
+.BR \-l ", " \-\-list " <tags> <path>" 
+.RI [options] " ..."
+
+.SH DESCRIPTION
+The \fBtag\fR command allows users to manipulate and query file tags. A \fItag\fR is a label associated with a file, which can be used to categorize and identify files.
+
 .TP
-.BR \-a ", " \-\-add\ \fItags\ \fIpath\fR
-Add tags to file
+\fItags\fR
+A comma-separated list of tag names. Use \fI*\fR to match any tag, but it will not match files without tags.
+
+.SH COMMANDS
+The following commands are available for manipulating tags on files:
+
 .TP
-.BR \-r ", " \-\-remove\ \fItags\ \fIpath\fR
-Remove tags from file
+.B \-a, \-\-add
+Add specified tags to the given file. Example: 
+.br
+tag -a "tag1,tag2" /path/to/file
+
 .TP
-.BR \-s ", " \-\-set\ \fItags\ \fIpath\fR
-Set tags on file
+.B \-r, \-\-remove
+Remove specified tags from the given file. Example:
+.br
+tag -r "tag1" /path/to/file
+
 .TP
-.BR \-m ", " \-\-match\ \fItags\ \fIpath\fR
-Display files with matching tags
+.B \-s, \-\-set
+Set (replace) the tags on a file with the specified tags. Example:
+.br
+tag -s "newtag1,newtag2" /path/to/file
+
 .TP
-.BR \-f ", " \-\-find\ \fItags\ \fIpath\fR
-Find all files with tags (-A, -e, -R ignored)
+.B \-m, \-\-match
+Display files that have matching tags. Example:
+.br
+tag -m "tag1"
+
 .TP
-.BR \-u ", " \-\-usage\ \fItags\ \fIpath\fR
-Display tag usage
+.B \-f, \-\-find
+Find all files with specified tags, ignoring other options like \-A, -e, -R. Example:
+.br
+tag -f "tag2"
+
 .TP
-.BR \-l ", " \-\-list\ \fItags\ \fIpath\fR
-List the tags on file
-.
-.SH "DESCRIPTION"
-.
-<tags> is a comma-separated list of tag names; use * to match/find any tag (but not no tags).
-.SH "OPTIONS"
-. Additional options:
+.B \-u, \-\-usage
+Display information on tag usage. 
+
 .TP
-.BR \-v ", " \-\-version
-Display version
+.B \-l, \-\-list
+List the tags associated with the specified file. Example:
+.br
+tag -l /path/to/file
+
+.SH OPTIONS
+Additional options that modify the behavior of the command:
+
 .TP
-.BR \-h ", " \-\-help
-Display this help
+.B \-v, \-\-version
+Output the version information of the tool.
+
 .TP
-.BR \-A ", " \-\-all
-Display invisible files while enumerating
+.B \-h, \-\-help
+Show a help message with a brief description of the commands and options.
+
 .TP
-.BR \-e ", " \-\-enter
-Enter and enumerate directories provided
+.B \-A, \-\-all
+Include invisible files while enumerating.
+
 .TP
-.BR \-R ", " \-\-recursive
-Recursively process directories
+.B \-e, \-\-enter
+Enter and enumerate the specified directories.
+
 .TP
-.BR \-n ", " \-\-name
-Turn on filename display in output (default)
+.B \-R, \-\-recursive
+Process directories recursively.
+
 .TP
-.BR \-N ", " \-\-no-name
-Turn off filename display in output (list, find, match)
+.B \-n, \-\-name
+Enable the display of filenames in output (default behavior).
+
 .TP
-.BR \-t ", " \-\-tags
-Turn on tags display in output (find, match)
+.B \-N, \-\-no-name
+Disable the display of filenames in output for list, find, match commands.
+
 .TP
-.BR \-T ", " \-\-no-tags
-Turn off tags display in output (list)
+.B \-t, \-\-tags
+Enable the display of tags in output for find, match commands.
+
 .TP
-.BR \-g ", " \-\-garrulous
-Display tags each on own line (list, find, match)
+.B \-T, \-\-no-tags
+Disable the display of tags in output for list command.
+
 .TP
-.BR \-G ", " \-\-no-garrulous
-Display tags comma-separated after filename (default)
+.B \-g, \-\-garrulous
+Show tags each on a new line (for list, find, match).
+
 .TP
-.BR \-c ", " \-\-color
-Display tag names in color
+.B \-G, \-\-no-garrulous
+Display tags in a comma-separated format after the filename (default).
+
 .TP
-.BR \-p ", " \-\-slash
-Terminate each directory name with a slash
+.B \-c, \-\-color
+Enable colored output for tag names.
+
 .TP
-.BR \-0 ", " \-\-null
-Terminate lines with NUL (\0) for use with xargs -0
+.B \-p, \-\-slash
+Terminate each directory name with a trailing slash.
+
 .TP
-.BR "    \-\-home"
-Find tagged files in user home directory
+.B \-0, \-\-null
+Terminate output lines with NUL (\0) for compatibility with `xargs -0`.
+
 .TP
-.BR "    \-\-local"
-Find tagged files in home + local filesystems
+.B \-\-home
+Search for tagged files in the user's home directory.
+
 .TP
-.BR "    \-\-network"qq
-Find tagged files in home + local + network filesystems
-.
+.B \-\-local
+Search for tagged files in the home and local filesystems.
+
+.TP
+.B \-\-network
+Search for tagged files across home, local, and network filesystems.
+
+.SH EXAMPLES
+.TP
+Add tags to a file:
+.br
+.B tag -a "project1,urgent" "/path/to/file"
+
+.TP
+List tags of a file:
+.br
+.B tag -l "/path/to/file"
+
+.TP
+Find all files with a specific tag:
+.br
+.B tag -f "tag_name"
+
 .SH BUGS
-Report on https://github.com/jdberry/tag/issues
-.
+For bug reports, please visit the [issue tracker](https://github.com/jdberry/tag/issues).
+
 .SH AUTHOR
 James Berry
+
+.SH SEE ALSO
+For more information, check out the official documentation or `man` pages for related commands.
